@@ -1,0 +1,262 @@
+﻿<Window x:Class="DiplomAnonima.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomAnonima"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="BabyShop" Width="1050" Height="600" MaxWidth="1050" MaxHeight="600" Closed="MainWin_Closed">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="filterStackPanel" Width="190" Margin="5 0 0 0">
+            <TextBlock Text="Фильтр" HorizontalAlignment="Center" FontWeight="Bold" Margin="0 70 0 0"/>
+            <ComboBox Margin="0 10 0 0" x:Name="productTypeComboBox" Style="{StaticResource filterComboBoxBoy}" SelectedIndex="0" Cursor="Hand">
+                <Label>Тип одежды</Label>
+            </ComboBox>
+            <ComboBox Margin="0 10 0 0" x:Name="productBrandComboBox" Style="{StaticResource filterComboBoxBoy}" SelectedIndex="0">
+                <Label>Бренд</Label>
+            </ComboBox>
+            <ComboBox Margin="0 10 0 0" x:Name="productSizeComboBox" Style="{StaticResource filterComboBoxBoy}" SelectedIndex="0">
+                <Label>Размер</Label>
+            </ComboBox>
+            <ComboBox Margin="0 10 0 0" x:Name="productAgeComboBox" Style="{StaticResource filterComboBoxBoy}" SelectedIndex="0" Cursor="Hand">
+                <Label>Возраст</Label>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="tabButBoy" Style="{StaticResource tabButtonBoyPressed}" Width="95" Click="TabButBoy_Click">
+                    <TextBlock Text="Для мальчиков"/>
+                </Button>
+
+                <Button x:Name="tabButGirl" Style="{StaticResource tabButtonGirl}" Width="95" Click="TabButGirl_Click">
+                    <TextBlock Text="Для девочек"/>
+                </Button>
+            </StackPanel>
+            <Button x:Name="filterAcceptBut" Style="{StaticResource filterAcceptButtonBoy}" Cursor="Hand" Margin="0 20 0 0"
+                    Click="Apply_Filters">
+                <TextBlock Text="Применить"/>
+            </Button>
+            <Button x:Name="filterClearBut" Style="{StaticResource filterAcceptButtonBoy}" Cursor="Hand" Margin=" 0 10 0 0"
+                    Click="Clear_Filters">
+                <TextBlock Text="Очистить фильтры"/>
+            </Button>
+        </StackPanel>
+
+        <!--Left Menu-->
+        <Grid x:Name="LeftMenuGrid" Width="0" HorizontalAlignment="Left">
+
+            <!--MenuIcon 2696ff-->
+            <Border Grid.Row="1" Background="#0084ff" CornerRadius="0 10 10 0">
+                <DockPanel>
+                    <Separator x:Name="leftMenuBackgroundSeparator" Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#0084ff"/>
+                    <!--Menu Titles-->
+                    <TextBlock x:Name="leftMenuNameSurname" Text="Имя Фамилия" Foreground="White" FontSize="22" FontWeight="SemiBold"
+                                   DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="leftMenuPhone" Text="Номер телефона" Foreground="#add8ff" FontSize="14" FontWeight="SemiBold"
+                                   DockPanel.Dock="Top" TextAlignment="Center"/>
+                    <!--Menu Separator-->
+                    <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#3fa1fc"/>
+
+                    <!--Menu Buttons-->
+                    <StackPanel DockPanel.Dock="Top">
+                        <Button x:Name="profileBut" Style="{StaticResource menuButton}" Click="ProfileBut_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="AccountCircle" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Профиль"/>
+                            </StackPanel>
+                        </Button>
+
+                       <!--
+                        <Button x:Name="favoriteBut" Style="{StaticResource menuButton}" Click="FavoriteBut_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Bookmark" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Избраное"/>
+                            </StackPanel>
+                        </Button>
+                       -->
+
+                        <Button x:Name="catalogBut" Style="{StaticResource menuButtonSelected}" Click="CatalogBut_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="BookOpenBlankVariant" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Каталог"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="ordersBut" Style="{StaticResource menuButton}" Click="OrdersBut_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Shopping" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Заказы"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button x:Name="cartBut" Style="{StaticResource menuButton}" Click="CartBut_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Cart" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Корзина"/>
+                                <Ellipse Width="7" Height="7" Margin="1 0 0 0" x:Name="cartEllipse" Visibility="Hidden">
+                                    <Ellipse.Fill>
+                                        <SolidColorBrush Color="Red"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+                    <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#3fa1fc"/>
+
+                    <Button x:Name="accountExitBut" Style="{StaticResource menuButton}" VerticalAlignment="Top" DockPanel.Dock ="Top" Margin="15 0 15 20 " Click="Account_Autorization">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial x:Name="accountExitButIcon" Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock x:Name="accountExitButText" Text="Выйти"/>
+                        </StackPanel>
+                    </Button>
+                </DockPanel>
+            </Border>
+
+        </Grid>
+
+        <!--LeftMenuButton-->
+        <StackPanel>
+            <Button x:Name="LeftMenuBut" Margin="10 10 0 0" Style="{StaticResource topButtonClose}" Click="ChangeLeftMenuState" Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Menu" Width="15" Height="15" Margin="7 0 0 0"/>
+                    <Ellipse Width="7" Height="7" Margin="0 0 0 10" x:Name="leftMenuButEllipse" Visibility="Hidden">
+                        <Ellipse.Fill>
+                            <SolidColorBrush Color="Red"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </StackPanel>
+
+            </Button>
+        </StackPanel>
+
+        <!--Top section-->
+        <!--Margin="30 20 20 20"-->
+        <Grid Grid.Column="1" Margin="30 20 20 20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="0" Height="57.96">
+                <!--Search TextBox-->
+                <!--
+                <Grid Width="300" HorizontalAlignment="Right">
+                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Найти..."
+                                   Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+                    <TextBox x:Name="txtSearch" Style="{StaticResource textboxSearch}"/>
+                    <StackPanel>
+                        <Button x:Name="searchBut" Style="{StaticResource searchButton}" HorizontalAlignment="Right" Margin="0 10 0 0" Cursor="Hand">
+                            <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center"
+                                               Foreground="#b0b9c6" HorizontalAlignment="Right"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+                -->
+
+                <Image>
+                    <Image.Source>
+                        <BitmapImage UriSource="BS_logo.png"/>
+                    </Image.Source>
+                </Image>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden">
+                <Grid x:Name="MainGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--
+                    <Border Background="White" BorderThickness="1" CornerRadius="0 0 8 8" Margin="20">
+                            <Border.Effect>
+                                <DropShadowEffect Direction="270" Opacity="1" BlurRadius="15" RenderingBias="Quality"/>
+                            </Border.Effect>
+                            <StackPanel>
+                                <Image Width="150" Height="150" Source="/Images/1.png" Stretch="Fill"/>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Худи Adidds" HorizontalAlignment="Left" Margin="5 10 0 0" FontWeight="Bold"/>
+                                    <TextBlock Text="Размер: 999см" HorizontalAlignment="Left" Margin="5 5 0 0"/>
+                                    <TextBlock Text="Возраст: 11 лет" HorizontalAlignment="Left" Margin="5 0 0 0"/>
+                                    <Button Height="30" Style="{StaticResource buyButton}" Margin="0 10 0 0" Cursor="Hand">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="500" FontWeight="Bold" FontSize="14"/>
+                                            <Icon:PackIconMaterial Kind="CurrencyRub" Width="11" Height="11" VerticalAlignment="Center" Margin="4 0 0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    -->
+                    <!--
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="AccountCircleOutline" Width="120" Height="120"/>
+                        <StackPanel Orientation="Vertical" Margin="20 0 0 0">
+                            <Grid>
+                                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#a6a6a6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Ваше имя*"
+                                   Visibility="{Binding ElementName=txtNameProfile, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+                                <TextBox x:Name="txtNameProfile" Width="150" Style="{StaticResource profileTextBox}"/>
+                            </Grid>
+                            <Grid>
+                                <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#a6a6a6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Ваша фамилия*"
+                                   Visibility="{Binding ElementName=txtSurnameProfile, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+                                <TextBox x:Name="txtSurnameProfile" Width="150" Style="{StaticResource profileTextBox}"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#a6a6a6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Номер телефона*"
+                                   Visibility="{Binding ElementName=txtPhoneProfile, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+                        <TextBox x:Name="txtPhoneProfile" Width="150" Style="{StaticResource profileTextBox}" HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Button Style="{StaticResource autorizationLoginButton}" Width="150" HorizontalAlignment="Left" x:Name="profileSaveBut">
+                            <TextBlock Text="Сохранить"/>
+                        </Button>
+
+                        <Border Background="#50eb98" Width="200" Height="35" VerticalAlignment="Bottom" Margin="10 0 0 0"
+                                CornerRadius="7">
+                            <TextBlock Text="Успешно сохранено" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#257d4e"/>
+                        </Border>
+                    </StackPanel>
+                    -->
+                    <!--
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="Для просмотра корзины необходимо выполнить вход в аккаунт. Чтобы это сделать, нажмите"/>
+                        <Button Background="White" Width="35" Height="17" BorderThickness="0 0 0 1" BorderBrush="#003682" Margin="3 0 0 0">
+                            <TextBlock Text="сюда." Foreground="#003682" VerticalAlignment="Center"/>
+                        </Button>
+                    </StackPanel>
+                    -->
+
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>
