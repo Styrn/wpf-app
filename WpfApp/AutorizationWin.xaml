@@ -1,0 +1,61 @@
+﻿<Window x:Class="DiplomAnonima.AutorizationWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiplomAnonima"
+        mc:Ignorable="d"
+        Title="Вход" Height="500" Width="400" MaxHeight="500" MaxWidth="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="autorizationTitle" Grid.Row="1" Text="Вход" HorizontalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+        <Grid Grid.Row="2"  Width="250">
+            <TextBlock x:Name="autorizationPhoneHintText" Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Номер телефона"
+                                   Visibility="{Binding ElementName=autorizationPhone, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+            <TextBox x:Name="autorizationPhone" Style="{StaticResource textboxSearch}" InputScope="TelephoneNumber" MaxLength="12"/>
+        </Grid>
+
+        <Grid Grid.Row="3" Width="250" x:Name="autorizationNameGrid" Height="0">
+            <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Ваше имя*"
+                                   Visibility="{Binding ElementName=autorizationName, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+            <TextBox x:Name="autorizationName" Style="{StaticResource textboxSearch}"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Width="250" x:Name="autorizationSurnameGrid" Height="0">
+            <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                                   Panel.ZIndex="1" Text="Ваша фамилия*"
+                                   Visibility="{Binding ElementName=autorizationSurname, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+            <TextBox x:Name="autorizationSurname" Style="{StaticResource textboxSearch}"/>
+        </Grid>
+
+        <TextBlock x:Name="requiredFieldsText" Grid.Row="5" Text="* - Обязательные поля" HorizontalAlignment="Center" Margin="0 0 100 5" Foreground="#a1a1a1" Visibility="Hidden"/>
+        <Grid Grid.Row="6" Width="250">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="autorizationLoginBut" Style="{StaticResource autorizationLoginButton}" Cursor="Hand" Margin="0 0 10 0" Width="86"
+                        Click="AutorizationLoginBut_Click">
+                    <TextBlock Text="Вход"/>
+                </Button>
+
+                <Button x:Name="autorizationRegistrationBut" Style="{StaticResource autorizationRegistrationButton}" Cursor="Hand" Margin="10 0 0 0" Width="136"
+                        Click="AutorizationRegistrationBut_Click">
+                    <TextBlock Text="Регистрация"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock x:Name="errTxt" Grid.Row="7" Text="Номер телефона не найден!" HorizontalAlignment="Center" Margin="0 5 80 0" Foreground="Red" Visibility="Hidden"/>
+
+    </Grid>
+</Window>
